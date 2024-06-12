@@ -10,12 +10,12 @@ export const metadata = {
 	description: "List of all the TODOs",
 }
 
-export default async function RestTodosPages(): Promise<React.ReactElement> {
+export default async function ServerTodosPages(): Promise<React.ReactElement> {
 	const todos = await prisma.todo.findMany({ orderBy: { description: "asc" } })
 
 	return (
 		<div>
-			<h1>Page Rest Todos</h1>
+			<h1>Server Actions</h1>
 			<div className="mx-5 mb-5 w-full px-3">
 				<NewTodo />
 			</div>
