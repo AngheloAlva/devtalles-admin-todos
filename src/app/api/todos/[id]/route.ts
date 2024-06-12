@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
-import yup from "yup"
-import { Todo } from "@prisma/client"
+
+import type { Todo } from "@prisma/client"
+import { boolean, object, string } from "yup"
 
 interface Segments {
 	params: {
@@ -24,9 +25,9 @@ export async function GET(req: Request, segments: Segments) {
 	return NextResponse.json(todo)
 }
 
-const putSchema = yup.object({
-	description: yup.string().optional(),
-	completed: yup.boolean().optional(),
+const putSchema = object({
+	description: string().optional(),
+	completed: boolean().optional(),
 })
 
 export async function PUT(req: Request, { params }: Segments) {

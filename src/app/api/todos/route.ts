@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma"
 import { NextResponse } from "next/server"
-import yup from "yup"
+import { boolean, object, string } from "yup"
 
 export async function GET(req: Request, res: Response) {
 	const { searchParams } = new URL(req.url)
@@ -23,9 +23,9 @@ export async function GET(req: Request, res: Response) {
 	return NextResponse.json(todos)
 }
 
-const postSchema = yup.object({
-	description: yup.string().required(),
-	completed: yup.boolean().optional().default(false),
+const postSchema = object({
+	description: string().required(),
+	completed: boolean().optional().default(false),
 })
 
 export async function POST(req: Request) {
@@ -40,6 +40,25 @@ export async function POST(req: Request) {
 		})
 
 		return NextResponse.json(todo, { status: 201 })
+	} catch (error) {
+		return NextResponse.json(error, { status: 400 })
+	}
+}
+
+export async function DELETE(req: Request) {
+	try {
+		await prisma.todo.deleteMany({
+			where: {
+				completed: true,
+			},
+		})
+
+		return NextResponse.json(
+			{
+				message: "Deleted successfully",
+			},
+			{ status: 201 }
+		)
 	} catch (error) {
 		return NextResponse.json(error, { status: 400 })
 	}
