@@ -1,9 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { CiBookmarkCheck, CiLogout } from "react-icons/ci"
+import { CiLogout } from "react-icons/ci"
 import { SidebarItem } from "@/components"
 import { IoCalendar, IoCheckboxOutline, IoListOutline } from "react-icons/io5"
+import { FaCookieBite } from "react-icons/fa6"
 
 const menuItems = [
 	{
@@ -20,6 +21,11 @@ const menuItems = [
 		icon: <IoListOutline size={30} />,
 		title: "Server Actions",
 		path: "/dashboard/server-todos",
+	},
+	{
+		icon: <FaCookieBite size={30} />,
+		title: "Cookies",
+		path: "/dashboard/cookies",
 	},
 ]
 
