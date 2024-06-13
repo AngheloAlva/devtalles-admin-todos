@@ -26,3 +26,15 @@ export const removeProductFromCart = (id: string): void => {
 	delete cookieCart[id]
 	setCookie("cart", JSON.stringify(cookieCart))
 }
+
+export const removeSingleItemFromCart = (id: string): void => {
+	const cookieCart = getCookieCart()
+
+	if (cookieCart[id] > 1) {
+		cookieCart[id] -= 1
+	} else {
+		delete cookieCart[id]
+	}
+
+	setCookie("cart", JSON.stringify(cookieCart))
+}

@@ -1,4 +1,5 @@
 import { cookies } from "next/headers"
+import Link from "next/link"
 import { CiChat1, CiMenuBurger, CiSearch, CiShoppingBasket } from "react-icons/ci"
 
 export default function TopMenu(): React.ReactElement {
@@ -47,10 +48,13 @@ export default function TopMenu(): React.ReactElement {
 					<button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-100 text-black focus:bg-gray-100 active:bg-gray-200">
 						<CiChat1 size={25} />
 					</button>
-					<button className="flex h-10 items-center justify-center rounded-xl border bg-gray-100 px-3 text-black focus:bg-gray-100 active:bg-gray-200">
+					<Link
+						href={"/dashboard/cart"}
+						className="flex h-10 items-center justify-center rounded-xl border bg-gray-100 px-3 text-black focus:bg-gray-100 active:bg-gray-200"
+					>
 						<span className="mr-2 text-sm font-bold text-blue-800">{totalItems}</span>
 						<CiShoppingBasket size={25} />
-					</button>
+					</Link>
 				</div>
 			</div>
 		</div>
