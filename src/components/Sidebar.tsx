@@ -5,6 +5,7 @@ import { CiLogout } from "react-icons/ci"
 import { SidebarItem } from "@/components"
 import { IoCalendar, IoCheckboxOutline, IoListOutline } from "react-icons/io5"
 import { FaCookieBite } from "react-icons/fa6"
+import { IoMdListBox } from "react-icons/io"
 
 const menuItems = [
 	{
@@ -26,6 +27,11 @@ const menuItems = [
 		icon: <FaCookieBite size={30} />,
 		title: "Cookies",
 		path: "/dashboard/cookies",
+	},
+	{
+		icon: <IoMdListBox size={30} />,
+		title: "Products",
+		path: "/dashboard/products",
 	},
 ]
 

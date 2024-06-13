@@ -1,6 +1,21 @@
-import { CiBellOn, CiChat1, CiMenuBurger, CiSearch } from "react-icons/ci"
+import { cookies } from "next/headers"
+import { CiChat1, CiMenuBurger, CiSearch, CiShoppingBasket } from "react-icons/ci"
 
 export default function TopMenu(): React.ReactElement {
+	const cookieStore = cookies()
+	const cart = JSON.parse(cookieStore.get("cart")?.value ?? "[]")
+
+	const getTotalCount = (cart: { [id: string]: number }): number => {
+		let items = 0
+		Object.values(cart).forEach((value) => {
+			items += value as number
+		})
+
+		return items
+	}
+
+	const totalItems = getTotalCount(cart)
+
 	return (
 		<div className="sticky top-0 z-10 h-16 border-b bg-white lg:py-2.5">
 			<div className="flex items-center justify-between space-x-4 px-6">
@@ -29,11 +44,12 @@ export default function TopMenu(): React.ReactElement {
 					<button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200 md:hidden">
 						<CiSearch />
 					</button>
-					<button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
+					<button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-100 text-black focus:bg-gray-100 active:bg-gray-200">
 						<CiChat1 size={25} />
 					</button>
-					<button className="flex h-10 w-10 items-center justify-center rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
-						<CiBellOn size={25} />
+					<button className="flex h-10 items-center justify-center rounded-xl border bg-gray-100 px-3 text-black focus:bg-gray-100 active:bg-gray-200">
+						<span className="mr-2 text-sm font-bold text-blue-800">{totalItems}</span>
+						<CiShoppingBasket size={25} />
 					</button>
 				</div>
 			</div>
