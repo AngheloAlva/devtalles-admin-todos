@@ -1,6 +1,8 @@
-import prisma from "@/lib/prisma"
-import { TodosGrid } from "@/todos/components"
 import { NewTodo } from "@/todos/components/NewTodo"
+import { TodosGrid } from "@/todos/components"
+import { redirect } from "next/navigation"
+import prisma from "@/lib/prisma"
+import { auth } from "@/auth"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -11,7 +13,15 @@ export const metadata = {
 }
 
 export default async function ServerTodosPages(): Promise<React.ReactElement> {
-	const todos = await prisma.todo.findMany({ orderBy: { description: "asc" } })
+	const session = await auth()
+
+	if (!session) redirect("/api/auth/signin")
+
+	const id = session?.user.id
+	const todos = await prisma.todo.findMany({
+		orderBy: { description: "asc" },
+		where: { id },
+	})
 
 	return (
 		<div>

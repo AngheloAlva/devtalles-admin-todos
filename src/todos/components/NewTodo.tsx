@@ -1,18 +1,23 @@
 "use client"
 
-import { addTodo, deleteCompleted } from "../actions/todo-actions"
+import { deleteCompleted } from "../actions/todo-actions"
 import { IoTrashOutline } from "react-icons/io5"
+import { createTodo } from "../helpers/todos"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export const NewTodo = () => {
 	const [description, setDescription] = useState("")
+	const router = useRouter()
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
 		if (description.trim().length === 0) return
 
-		await addTodo(description)
+		await createTodo(description)
+		router.refresh()
+
 		setDescription("")
 	}
 

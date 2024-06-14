@@ -1,3 +1,4 @@
+import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
 import { NextResponse } from "next/server"
 import { boolean, object, string } from "yup"
@@ -29,13 +30,20 @@ const postSchema = object({
 })
 
 export async function POST(req: Request) {
+	const session = await auth()
+
+	if (!session?.user || !session.user.id) {
+		return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+	}
+
 	try {
 		const { completed, description } = await postSchema.validate(await req.json())
 
 		const todo = await prisma.todo.create({
 			data: {
-				description,
 				completed,
+				description,
+				userId: session.user.id,
 			},
 		})
 
@@ -46,10 +54,17 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+	const session = await auth()
+
+	if (!session?.user || !session.user.id) {
+		return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+	}
+
 	try {
 		await prisma.todo.deleteMany({
 			where: {
 				completed: true,
+				userId: session.user.id,
 			},
 		})
 

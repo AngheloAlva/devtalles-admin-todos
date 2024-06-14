@@ -30,6 +30,11 @@ npx prisma generate
 
 6. Ejecutar el SEED para [cargar datos de prueba](localhost:3000/api/seed)
 
+## Nota:
+
+**usuario:** test1@google.com
+**password:** 123456
+
 # Prisma commands
 
 ```

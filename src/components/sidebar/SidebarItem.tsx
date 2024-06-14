@@ -3,8 +3,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-// Active className: text-white bg-gradient-to-r from-sky-600 to-cyan-400
-
 export default function SidebarItem({ icon, path, title }: SidebarItemProps): React.ReactElement {
 	const activePath = usePathname()
 
